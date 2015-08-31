@@ -66,6 +66,8 @@ public:
         frame_width = width ;
         frame_height = height;
         frame_zero = zero;
+        //draw the frame
+        draw_frame();
     }
 /**
  * This function to draw the frame game using class point
@@ -173,10 +175,23 @@ public:
 };
 
 int main(int argc, char const *argv[]) {
+    //the game frame set an object with the constants to draw
     frame game_frame( global_width , global_height, global_zero );
-    game_frame.draw_frame();
 
+    //object from destroyer
     destroyer game_destroyer( global_width , global_height, global_zero );
 
+    //start the action
+    char game_action;
+    while(TRUE){
+        game_action = getch(); // get the action cat from the user
+        //check the action
+        if(game_action == 'a'){ // this to move left
+            game_destroyer.move_destroyer_left();
+        }
+         if(game_action == 'd'){ // this to move right
+            game_destroyer.move_destroyer_right();
+        }
+    }
     return 0;
 }
