@@ -5,13 +5,13 @@
 #include <conio.h>
 #include <string>
 using namespace std;
-const int globalWidth=40;
-const int globalHeight=25;
-const int globalZero=0;
-/*
+const int global_width=50;
+const int global_height=25;
+const int global_zero=0;
+/**
  *@class point
  *which use to handle the console area
- *in X , Y
+ *int X , Y
  */
 class point
 {
@@ -49,7 +49,68 @@ public:
 	int operator >= (point p){ return (x >= p.x && y >= p.y); }
 	point operator += (point p){ return point(x += p.x, y += p.y); }
 };
+/**
+  * @class frame
+  * the game frame
+  */
+class frame
+{
+    // frame variables
+    int width;
+    int height;
+    int zero;
+public:
+    frame ()
+    {
+        width = global_width ;
+        height = global_height;
+        zero = global_zero;
+    }
+/**
+ * This function to draw the frame game using class point
+ */
+void draw_frame()
+{
+    system("cls");
+    point x;    //new object from point class  NOTE without constructor parameter because it's set default.
+    //set the top line of the frame
+    //              Start               END
+	for (x.set_point(zero, zero); x <= point(width, zero); x += point(1, 0))
+	{
+		x.gotoxy();
+		puts("*");
+	}
+
+    //set the Right line of the frame
+    //              Start               END
+	for (x.set_point(width, zero); x <= point(width, height); x += point(0, 1))
+	{
+		x.gotoxy();
+        puts("*");
+	}
+    //set the bottom line of the frame
+    //              Start               END
+	for (x.set_point(zero,height); x <= point(width, height); x += point(1, 0))
+	{
+		x.gotoxy();
+		puts("*");
+	}
+    //set the Left line of the frame
+    //              Start               END
+	for (x.set_point(zero,zero); x <= point(zero, height); x += point(0, 1))
+	{
+		x.gotoxy();
+		puts("*");
+	}
+	cout<<"PRESS |'w' hit blocks||'a' move left|"<<endl;
+	cout<<"      |'d' move right||'r' reload blocks|"<<endl;
+	cout<<"      |'q' Quite"<<endl;
+}
+
+};
 
 int main(int argc, char const *argv[]) {
-  return 0;
+    frame game_frame;
+    game_frame.draw_frame();
+    return 0;
 }
