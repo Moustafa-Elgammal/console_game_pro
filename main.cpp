@@ -174,22 +174,33 @@ public:
     }
 };
 
-class blocks
-{
+class blocks{
+    // blocks @param
     int blocks_height;
     int blocks_width;
     int blocks_zero;
     int blocks_top;
 public:
+     point x; // public object for the coordinates  X  Y
+    //constructor
     blocks(int width , int zero ){
         blocks_height = 3;
-        blocks_width = width - 4;
+        blocks_width = width - 2;
         blocks_zero = zero + 2;
         blocks_top = zero + 2;
+        draw_blocks();
     }
 
     void draw_blocks(){
+        int x_coord , y_coord;
 
+        for (y_coord = blocks_top ; y_coord <= blocks_height ; y_coord++){
+            for (x_coord = blocks_zero  ; x_coord <= blocks_width ; x_coord++){
+                x.set_point(x_coord,y_coord);
+                x.gotoxy();
+                puts("x");
+            }
+        }
     }
 
 };
@@ -202,6 +213,9 @@ int main(int argc, char const *argv[]) {
     destroyer game_destroyer( global_width , global_height, global_zero );
     game_destroyer.draw_destroyer();
     //start the action
+
+    blocks game_blocks(global_width,global_zero);
+
     char game_action;
     while(TRUE){
         game_action = getch(); // get the action cat from the user
