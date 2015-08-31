@@ -180,9 +180,9 @@ class blocks{
     int blocks_width;
     int blocks_zero;
     int blocks_top;
-    char* blocks_array_1;
-    char* blocks_array_2;
-    char* blocks_array_3;
+    char* blocks_array_row_1;
+    char* blocks_array_row_2;
+    char* blocks_array_row_3;
 public:
      point x; // public object for the coordinates  X  Y
     //constructor
@@ -195,9 +195,9 @@ public:
     }
 
     void draw_blocks(){
-        blocks_array_1 = new char[blocks_width];
-        blocks_array_2 = new char[blocks_width];
-        blocks_array_3 = new char[blocks_width];
+        blocks_array_row_1 = new char[blocks_width];
+        blocks_array_row_2 = new char[blocks_width];
+        blocks_array_row_3 = new char[blocks_width];
     }
 
 };
