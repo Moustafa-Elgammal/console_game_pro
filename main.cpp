@@ -124,6 +124,7 @@ public:
         destroyer_top = height - 1;
         destroyer_width = width;
         destroyer_zero = zero;
+        draw_destroyer();
 
     }
 
@@ -147,7 +148,7 @@ public:
         puts(" ");
     }
 
-    /**
+    /**@function void move_destroyer_right
       *this function to move the body to right
       *at the new position setting
       */
@@ -160,7 +161,7 @@ public:
         }
     }
 
-    /**
+    /**@function void move_destroyer_left
      *this function to move the body to left
      *at the new position setting
      */
@@ -208,9 +209,8 @@ int main(int argc, char const *argv[]) {
 
     //object from destroyer
     destroyer game_destroyer( global_width , global_height, global_zero );
-    game_destroyer.draw_destroyer();
-    //start the action
 
+    //start the action
     blocks game_blocks(global_width,global_zero);
 
     char game_action;
