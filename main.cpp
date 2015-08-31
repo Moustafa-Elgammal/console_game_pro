@@ -62,10 +62,10 @@ class frame
 public:
     point x;    //new object from point class  NOTE without constructor parameter because it's set default.
     //constructor
-    frame (){
-        frame_width = global_width ;
-        frame_height = global_height;
-        frame_zero = global_zero;
+    frame (int width,int height,int zero){
+        frame_width = width ;
+        frame_height = height;
+        frame_zero = zero;
     }
 /**
  * This function to draw the frame game using class point
@@ -117,11 +117,11 @@ class destroyer{
 public:
     point x; // public object for the coordinates  X  Y
     //constructor
-    destroyer(){
-        destroyer_left = global_width / 2;
-        destroyer_top = global_height - 1;
-        destroyer_width = global_width;
-        destroyer_zero = global_zero;
+    destroyer( int width , int height , int zero ) {
+        destroyer_left = width / 2;
+        destroyer_top = height - 1;
+        destroyer_width = width;
+        destroyer_zero = zero;
         draw_destroyer();
     }
 
@@ -173,10 +173,10 @@ public:
 };
 
 int main(int argc, char const *argv[]) {
-    frame game_frame;
+    frame game_frame( global_width , global_height, global_zero );
     game_frame.draw_frame();
 
-    destroyer game_destroyer;
+    destroyer game_destroyer( global_width , global_height, global_zero );
 
     return 0;
 }
