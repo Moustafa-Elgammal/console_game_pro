@@ -192,7 +192,7 @@ int main(int argc, char const *argv[]) {
          if(game_action == 'd'){ // this to move right
             game_destroyer.move_destroyer_right();
         }
-        if(game_action == 'q'){ // this to move right
+        if(game_action == 'q'){ // this to exit the game
             system("cls");
             cout << "you just exit it,thank you ";
             system("pause");
