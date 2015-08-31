@@ -180,6 +180,9 @@ class blocks{
     int blocks_width;
     int blocks_zero;
     int blocks_top;
+    char* blocks_array_1;
+    char* blocks_array_2;
+    char* blocks_array_3;
 public:
      point x; // public object for the coordinates  X  Y
     //constructor
@@ -192,15 +195,9 @@ public:
     }
 
     void draw_blocks(){
-        int x_coord , y_coord;
-
-        for (y_coord = blocks_top ; y_coord <= blocks_height ; y_coord++){
-            for (x_coord = blocks_zero  ; x_coord <= blocks_width ; x_coord++){
-                x.set_point(x_coord,y_coord);
-                x.gotoxy();
-                puts("x");
-            }
-        }
+        blocks_array_1 = new char[blocks_width];
+        blocks_array_2 = new char[blocks_width];
+        blocks_array_3 = new char[blocks_width];
     }
 
 };
