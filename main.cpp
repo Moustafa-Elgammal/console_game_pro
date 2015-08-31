@@ -59,8 +59,8 @@ class frame
     int frame_width;
     int frame_height;
     int frame_zero;
+    point x;//new object from point class  NOTE without constructor parameter because it's set default.
 public:
-    point x;    //new object from point class  NOTE without constructor parameter because it's set default.
     //constructor
     frame (int width,int height,int zero){
         frame_width = width ;
@@ -116,8 +116,8 @@ class destroyer{
     int destroyer_left;
     int destroyer_top;
     int destroyer_zero;
-public:
     point x; // public object for the coordinates  X  Y
+public:
     //constructor
     destroyer( int width , int height , int zero ) {
         destroyer_left = width / 2;
@@ -183,8 +183,8 @@ class blocks{
     char* blocks_array_row_1;
     char* blocks_array_row_2;
     char* blocks_array_row_3;
+    point x; // public object for the coordinates  X  Y
 public:
-     point x; // public object for the coordinates  X  Y
     //constructor
     blocks(int width , int zero ){
         blocks_height = 3;
