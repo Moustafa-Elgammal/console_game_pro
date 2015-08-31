@@ -5,6 +5,9 @@
 #include <conio.h>
 #include <string>
 using namespace std;
+const int globalWidth=40;
+const int globalHeight=25;
+const int globalZero=0;
 /*
  *@class point
  *which use to handle the console area
