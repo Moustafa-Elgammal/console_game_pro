@@ -124,7 +124,7 @@ public:
         destroyer_top = height - 1;
         destroyer_width = width;
         destroyer_zero = zero;
-        draw_destroyer();
+
     }
 
     /**@function void draw_destroyer
@@ -142,7 +142,7 @@ public:
       *before go to the new one
       */
     void delete_destroyer(){
-        x.set_point( destroyer_left, destroyer_left);
+        x.set_point( destroyer_left, destroyer_top);
         x.gotoxy();
         puts(" ");
     }
@@ -153,7 +153,7 @@ public:
       */
     void move_destroyer_right(){
         //check the width between the destroyer body and the frame
-        if(destroyer_left < destroyer_width-1){
+        if(destroyer_left < destroyer_width - 1){
             delete_destroyer(); //clear the destroyer body for the new
             destroyer_left += 1 ; //update the destroyer_left property
             draw_destroyer(); //set the new one
@@ -180,7 +180,7 @@ int main(int argc, char const *argv[]) {
 
     //object from destroyer
     destroyer game_destroyer( global_width , global_height, global_zero );
-
+    game_destroyer.draw_destroyer();
     //start the action
     char game_action;
     while(TRUE){
@@ -191,6 +191,12 @@ int main(int argc, char const *argv[]) {
         }
          if(game_action == 'd'){ // this to move right
             game_destroyer.move_destroyer_right();
+        }
+        if(game_action == 'q'){ // this to move right
+            system("cls");
+            cout << "you just exit it,thank you ";
+            system("pause");
+            break;
         }
     }
     return 0;
