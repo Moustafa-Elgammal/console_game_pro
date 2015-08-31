@@ -5,9 +5,9 @@
 #include <conio.h>
 #include <string>
 using namespace std;
-const int global_width=50;
-const int global_height=25;
-const int global_zero=0;
+const int global_width = 35;
+const int global_height = 20;
+const int global_zero = 0;
 /**
  *@class point
  *which use to handle the console area
@@ -172,6 +172,26 @@ public:
             draw_destroyer(); //set the new one
         }
     }
+};
+
+class blocks
+{
+    int blocks_height;
+    int blocks_width;
+    int blocks_zero;
+    int blocks_top;
+public:
+    blocks(int width , int zero ){
+        blocks_height = 3;
+        blocks_width = width - 4;
+        blocks_zero = zero + 2;
+        blocks_top = zero + 2;
+    }
+
+    void draw_blocks(){
+
+    }
+
 };
 
 int main(int argc, char const *argv[]) {
