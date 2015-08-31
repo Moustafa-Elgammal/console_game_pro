@@ -60,8 +60,9 @@ class frame
     int frame_height;
     int frame_zero;
 public:
-    frame ()
-    {
+    point x;    //new object from point class  NOTE without constructor parameter because it's set default.
+    //constructor
+    frame (){
         frame_width = global_width ;
         frame_height = global_height;
         frame_zero = global_zero;
@@ -72,7 +73,6 @@ public:
 void draw_frame()
 {
     system("cls");
-    point x;    //new object from point class  NOTE without constructor parameter because it's set default.
     //set the top line of the frame
     //              Start               END
 	for (x.set_point(frame_zero, frame_zero); x <= point(frame_width, frame_zero); x += point(1, 0))
@@ -111,25 +111,26 @@ void draw_frame()
 class destroyer{
     //destroyer properties
     int destroyer_width;
-    int destroyer_bodyLeft;
-    int destroyer_bodyTop;
+    int destroyer_left;
+    int destroyer_top;
     int destroyer_zero;
 public:
+    point x; // public object for the coordinates  X  Y
+    //constructor
     destroyer(){
-        destroyer_bodyLeft = global_width / 2;
-        destroyer_bodyTop = global_height - 1;
+        destroyer_left = global_width / 2;
+        destroyer_top = global_height - 1;
         destroyer_width = global_width;
         destroyer_zero = global_zero;
+        draw_destroyer();
     }
-    point x; // public object for the coordinates  X  Y
 
     /**@function void draw_destroyer
       *this function use to set the position of the
       *destroyer body '^' then put it
       */
-    void draw_destroyer()
-    {
-        x.set_point( destroyer_bodyLeft , destroyer_bodyTop );
+    void draw_destroyer(){
+        x.set_point( destroyer_left , destroyer_top );
         x.gotoxy();
         puts("^");
     }
@@ -138,9 +139,8 @@ public:
       *the function which use to clear the old position of the destroyer body
       *before go to the new one
       */
-    void delete_destroyer()
-    {
-        x.set_point( destroyer_bodyLeft, destroyer_bodyLeft);
+    void delete_destroyer(){
+        x.set_point( destroyer_left, destroyer_left);
         x.gotoxy();
         puts(" ");
     }
@@ -149,15 +149,12 @@ public:
       *this function to move the body to right
       *at the new position setting
       */
-    void move_destroyer_right()
-    {
-        if(destroyer_left < destroyer_width-1)
-        {
-            delete_destroyer();
-            x.set_point(bodyLeft+1, bodyTop);
-            x.gotoxy();
-            puts("i");
-            bodyLeft=bodyLeft+1;
+    void move_destroyer_right(){
+        //check the width between the destroyer body and the frame
+        if(destroyer_left < destroyer_width-1){
+            delete_destroyer(); //clear the destroyer body for the new
+            destroyer_left += 1 ; //update the destroyer_left property
+            draw_destroyer(); //set the new one
         }
     }
 
@@ -165,25 +162,12 @@ public:
      *this function to move the body to left
      *at the new position setting
      */
-    void moveLeft()
-    {
-        if(bodyLeft > zero+1)
-        {
-            deleteBody();
-            x.set_point(bodyLeft-1, bodyTop);
-            x.gotoxy();
-            puts("i");
-            bodyLeft=bodyLeft-1;
-        }
-    }
-
-    void killElement()
-    {
-        for(int i=2;i<2+3;i++)
-        {
-            x.set_point(bodyLeft, i);
-            x.gotoxy();
-            puts(" ");
+    void move_destroyer_left(){
+        //check the width between the destroyer body and the frame
+        if(destroyer_left > destroyer_zero+1){
+            delete_destroyer(); //clear the destroyer body for the new
+            destroyer_left -= 1 ; //update the destroyer_left property
+            draw_destroyer(); //set the new one
         }
     }
 };
@@ -191,5 +175,8 @@ public:
 int main(int argc, char const *argv[]) {
     frame game_frame;
     game_frame.draw_frame();
+
+    destroyer game_destroyer;
+
     return 0;
 }
