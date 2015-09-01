@@ -5,7 +5,7 @@
 #include <conio.h>
 #include <string>
 using namespace std;
-const int global_width = 35;
+const int global_width = 36;
 const int global_height = 20;
 const int global_zero = 0;
 /**
@@ -192,13 +192,54 @@ public:
         blocks_width = width - 2;
         blocks_zero = zero + 2;
         blocks_top = zero + 2;
-        draw_blocks();
+        create_blocks();
     }
 
-    void draw_blocks(){
+    void create_blocks(){
         blocks_array_row_1 = new char[blocks_width];
         blocks_array_row_2 = new char[blocks_width];
         blocks_array_row_3 = new char[blocks_width];
+        int i;
+
+        /** this for first row in the blocks structure */
+        for ( i = 0 ; i < blocks_width ; i++){
+            if( i % 2){ //the shape function
+                blocks_array_row_1 [i] ='@'; //set element value
+                x.set_point(i + blocks_zero , 1); // set its position
+                x.gotoxy(); //handle the coordinates
+                puts("@"); // print its sign
+            } else { // reverse shape function
+                blocks_array_row_1 [i] =' '; // set empty element value
+                //do nothing
+            }
+        }
+
+        /** this for second row in the blocks structure */
+        for ( i = 0 ; i < blocks_width ; i++){
+            if(! (i % 2)){ //the shape function
+                blocks_array_row_2 [i] ='@'; //set element value
+                x.set_point(i + blocks_zero , 2); // set its position
+                x.gotoxy(); //handle the coordinates
+                puts("@"); // print its sign
+            } else { // reverse shape function
+                blocks_array_row_2 [i] =' '; // set empty element value
+                //do nothing
+            }
+        }
+
+        /** this for first row in the blocks structure */
+        for ( i = 0 ; i < blocks_width ; i++){
+            if( i % 2){ //the shape function
+                blocks_array_row_3 [i] ='@'; //set element value
+                x.set_point(i + blocks_zero , 3); // set its position
+                x.gotoxy(); //handle the coordinates
+                puts("@"); // print its sign
+            } else { // reverse shape function
+                blocks_array_row_3 [i] =' '; // set empty element value
+                //do nothing
+            }
+        }
+
     }
 
 };
