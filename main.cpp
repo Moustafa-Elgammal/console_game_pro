@@ -7,7 +7,7 @@
 using namespace std;
 const int global_width = 36;
 const int global_height = 20;
-const int global_zero = 0;
+const int global_zero = 5;
 /**
  *@class point
  *which use to handle the console area
@@ -15,39 +15,39 @@ const int global_zero = 0;
  */
 class point
 {
-	int x, y;
+    int x, y;
 public:
     point(int u=0, int v=0) // u&v initializing values when creating new object without setting constructor parameters
-	{
-		set_point(u,v); //the
-	}
+    {
+        set_point(u,v); //the
+    }
 
     /** this function to set the x and y of the point position
       * @para int u >> X axis
       * @para int v >> Y axis
       */
-	void set_point(int u, int v)
-	{
-		x = u;
-		y = v;
-	}
+    void set_point(int u, int v)
+    {
+        x = u;
+        y = v;
+    }
 
     //system function to set position with co-ordinates
-	void gotoxy()
-	{//function definition
-		HANDLE hConsoleOutput;
-		COORD dwCursorPosition;
-		cout.flush();
-		dwCursorPosition.X = x;
-		dwCursorPosition.Y = y;
-		hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
-	}
+    void gotoxy()
+    {//function definition
+        HANDLE hConsoleOutput;
+        COORD dwCursorPosition;
+        cout.flush();
+        dwCursorPosition.X = x;
+        dwCursorPosition.Y = y;
+        hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
+    }
 
     //set operator
-	int operator <= (point p){ return (x <= p.x && y <= p.y); }
-	int operator >= (point p){ return (x >= p.x && y >= p.y); }
-	point operator += (point p){ return point(x += p.x, y += p.y); }
+    int operator <= (point p){ return (x <= p.x && y <= p.y); }
+    int operator >= (point p){ return (x >= p.x && y >= p.y); }
+    point operator += (point p){ return point(x += p.x, y += p.y); }
 };
 /**
   * @class frame
@@ -63,9 +63,10 @@ class frame
 public:
     //constructor
     frame (int width,int height,int zero){
-        frame_width = width ;
-        frame_height = height;
+
         frame_zero = zero;
+        frame_width = frame_zero + width;
+        frame_height = frame_zero + height;
         //draw the frame
         draw_frame();
     }
@@ -77,36 +78,36 @@ void draw_frame()
     system("cls");
     //set the top line of the frame
     //              Start               END
-	for (x.set_point(frame_zero, frame_zero); x <= point(frame_width, frame_zero); x += point(1, 0))
-	{
-		x.gotoxy();
-		puts("*");
-	}
+    for (x.set_point(frame_zero , frame_zero); x <= point(frame_width , frame_zero); x += point(1, 0))
+    {
+        x.gotoxy();
+        puts("*");
+    }
 
     //set the Right line of the frame
     //              Start               END
-	for (x.set_point(frame_width, frame_zero); x <= point(frame_width, frame_height); x += point(0, 1))
-	{
-		x.gotoxy();
+    for (x.set_point(frame_width  , frame_zero); x <= point(frame_width  , frame_height ); x += point(0, 1))
+    {
+        x.gotoxy();
         puts("*");
-	}
-    //set the bottom line of the frame
-    //              Start               END
-	for (x.set_point(frame_zero,frame_height); x <= point(frame_width, frame_height); x += point(1, 0))
-	{
-		x.gotoxy();
-		puts("*");
-	}
+    }
     //set the Left line of the frame
     //              Start               END
-	for (x.set_point(frame_zero,frame_zero); x <= point(frame_zero, frame_height); x += point(0, 1))
-	{
-		x.gotoxy();
-		puts("*");
-	}
-	cout<<"PRESS |'w' hit blocks||'a' move left|"<<endl;
-	cout<<"      |'d' move right||'r' reload blocks|"<<endl;
-	cout<<"      |'q' Quite"<<endl;
+    for (x.set_point(frame_zero , frame_zero); x <= point(frame_zero, frame_height ); x += point(0, 1))
+    {
+        x.gotoxy();
+        putch('*');
+    }
+    //set the bottom line of the frame
+    //              Start               END
+    for (x.set_point(frame_zero , frame_height ); x <= point(frame_width , frame_height ); x += point(1, 0))
+    {
+        x.gotoxy();
+        putch('*');
+    }
+    cout<<"\nPRESS |'w' hit blocks||'a' move left|"<<endl;
+    cout<<"      |'d' move right||'r' reload blocks|"<<endl;
+    cout<<"      |'q' Quite"<<endl;
 }
 };
 
@@ -120,10 +121,10 @@ class destroyer{
 public:
     //constructor
     destroyer( int width , int height , int zero ) {
-        destroyer_left = width / 2;
-        destroyer_top = height - 1;
-        destroyer_width = width;
         destroyer_zero = zero;
+        destroyer_left = zero + width / 2;
+        destroyer_top = zero + height - 1;
+        destroyer_width = zero + width;
         draw_destroyer();
 
     }
@@ -135,7 +136,7 @@ public:
     void draw_destroyer(){
         x.set_point( destroyer_left , destroyer_top );
         x.gotoxy();
-        puts("^");
+        putch('^');
     }
 
     /**@function void delete_destroyer
@@ -145,7 +146,7 @@ public:
     void delete_destroyer(){
         x.set_point( destroyer_left, destroyer_top);
         x.gotoxy();
-        puts(" ");
+        putch(' ');
     }
 
     /**@function void move_destroyer_right
@@ -173,14 +174,23 @@ public:
             draw_destroyer(); //set the new one
         }
     }
+    /**@function get_destroyer_left
+      *this function used to
+      *@return int destroyer_left
+      */
+    int get_destroyer_left(){
+        return destroyer_left;
+    }
 };
 
 class blocks{
     // blocks @param
     int blocks_height;
     int blocks_width;
+    int blocks_left;
     int blocks_zero;
     int blocks_top;
+    char  blocks_sign;
     char* blocks_array_row_1;
     char* blocks_array_row_2;
     char* blocks_array_row_3;
@@ -191,23 +201,31 @@ public:
         blocks_height = 3;
         blocks_width = width - 2;
         blocks_zero = zero + 2;
-        blocks_top = zero + 2;
+        blocks_top = zero + 1;
+        blocks_left =zero + 2;
+        blocks_sign = '@';
         create_blocks();
     }
 
+    /**@function void create_blocks
+      *used to set the dynamic size of the rows arrays
+      *and set the values with printing in the game screen
+      */
     void create_blocks(){
-        blocks_array_row_1 = new char[blocks_width];
-        blocks_array_row_2 = new char[blocks_width];
-        blocks_array_row_3 = new char[blocks_width];
-        int i;
+        blocks_array_row_1 = new char[blocks_width]; //init first row array size
+        blocks_array_row_2 = new char[blocks_width]; //init second row array size
+        blocks_array_row_3 = new char[blocks_width]; //init third row array size
+        int i; //for function counter
 
         /** this for first row in the blocks structure */
-        for ( i = 0 ; i < blocks_width ; i++){
+        for ( i = 0 ; i < blocks_width - 1 ; i++){
             if( i % 2){ //the shape function
-                blocks_array_row_1 [i] ='@'; //set element value
-                x.set_point(i + blocks_zero , 1); // set its position
-                x.gotoxy(); //handle the coordinates
-                puts("@"); // print its sign
+                blocks_array_row_1 [i] = blocks_sign; //set element value
+                if (blocks_array_row_1 [i] == blocks_sign){// check if index is set with value
+                    x.set_point(i + blocks_zero , blocks_top + 1); // set its position
+                    x.gotoxy(); //handle the coordinates
+                    putch(blocks_sign); // print its sign
+                }
             } else { // reverse shape function
                 blocks_array_row_1 [i] =' '; // set empty element value
                 //do nothing
@@ -215,33 +233,70 @@ public:
         }
 
         /** this for second row in the blocks structure */
-        for ( i = 0 ; i < blocks_width ; i++){
+        for ( i = 0 ; i < blocks_width - 1 ; i++){
             if(! (i % 2)){ //the shape function
-                blocks_array_row_2 [i] ='@'; //set element value
-                x.set_point(i + blocks_zero , 2); // set its position
-                x.gotoxy(); //handle the coordinates
-                puts("@"); // print its sign
+                blocks_array_row_2 [i] = blocks_sign; //set element value
+                if (blocks_array_row_2 [i] == blocks_sign){ // check if index is set with value
+                    x.set_point(i + blocks_zero , blocks_top + 2); // set its position
+                    x.gotoxy(); //handle the coordinates
+                    putch(blocks_sign); // print its sign
+                }
             } else { // reverse shape function
                 blocks_array_row_2 [i] =' '; // set empty element value
                 //do nothing
             }
         }
 
-        /** this for first row in the blocks structure */
-        for ( i = 0 ; i < blocks_width ; i++){
+        /** this for third row in the blocks structure */
+        for ( i = 0 ; i < blocks_width - 1 ; i++){
             if( i % 2){ //the shape function
-                blocks_array_row_3 [i] ='@'; //set element value
-                x.set_point(i + blocks_zero , 3); // set its position
-                x.gotoxy(); //handle the coordinates
-                puts("@"); // print its sign
+                blocks_array_row_3 [i] = blocks_sign; //set element value
+                if (blocks_array_row_3 [i] == blocks_sign){// check if index is set with value
+                    x.set_point(i + blocks_zero , blocks_top + 3); // set its position
+                    x.gotoxy(); //handle the coordinates
+                    putch(blocks_sign); // print its sign
+                }
             } else { // reverse shape function
                 blocks_array_row_3 [i] =' '; // set empty element value
                 //do nothing
             }
         }
-
     }
 
+    /**@function void replace_blocks_element
+      *used to replace the sign of an element with space
+      */
+    void replace_blocks_element(int destroyer_left, int row){
+            x.set_point( destroyer_left , blocks_top + row); // set position
+            x.gotoxy(); // go to the wanted position
+            putch(' '); // replace the sign with empty space
+            cout << "\a"; // destroying sound
+    }
+
+    void destroy_blocks_element(int destroyer_left){
+
+            // destroy the third element if is set with a sign the return void
+            if(blocks_array_row_3[destroyer_left - blocks_zero] == blocks_sign){ // check the sign in the row array
+                blocks_array_row_3[destroyer_left - blocks_left] = ' '; //update the value with space 'empty'
+                replace_blocks_element(destroyer_left , 3); //replacement function
+                return; //void return
+            }
+
+            // destroy the third element if is set with a sign the return void
+            if(blocks_array_row_2[destroyer_left - blocks_zero] == blocks_sign){ // check the sign in the row array
+                blocks_array_row_2[destroyer_left - blocks_left] = ' '; //update the value with space 'empty'
+                replace_blocks_element(destroyer_left , 2); //replacement function
+                return; //void return
+            }
+
+            // destroy the third element if is set with a sign the return void
+            if(blocks_array_row_1[destroyer_left - blocks_zero] == blocks_sign){
+                blocks_array_row_1[destroyer_left - blocks_left] = ' '; //update the value with space 'empty'
+                replace_blocks_element(destroyer_left , 1); //replacement function
+                return; //void return
+            }
+            Beep(500,500); // warning sound
+    }
 };
 
 int main(int argc, char const *argv[]) {
@@ -254,23 +309,38 @@ int main(int argc, char const *argv[]) {
     //start the action
     blocks game_blocks(global_width,global_zero);
 
-    char game_action;
-    while(TRUE){
+    char game_action; //used to sort the user action
+    bool game_continue = TRUE; //the non quite variable
+    while( game_continue ){ //check the user need to continue
         game_action = getch(); // get the action cat from the user
         //check the action
         if(game_action == 'a'){ // this to move left
             game_destroyer.move_destroyer_left();
         }
+
          if(game_action == 'd'){ // this to move right
             game_destroyer.move_destroyer_right();
         }
+
         if(game_action == 'q'){ // this to exit the game
-            system("cls");
-            cout << "you just exit it,thank you ";
-            system("pause");
-            break;
+            game_continue = FALSE; //QUITE
+        }
+
+        if(game_action =='w'){//destroy block element
+            game_blocks.destroy_blocks_element(game_destroyer.get_destroyer_left());
+        }
+
+        if(game_action =='r'){ // reload the the game blocks
+            game_blocks.create_blocks();
+            game_destroyer.delete_destroyer();
+            game_destroyer.draw_destroyer();
         }
     }
+
+    system("cls"); //clear the screen
+    cout << "you just exit it,thank you ."; // goodbye statement
+    system("pause"); //this to controlled pause
+
     return 0;
 }
 /*just note in a git commit */
