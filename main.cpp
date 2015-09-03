@@ -7,7 +7,7 @@
 using namespace std;
 const int global_width = 36;
 const int global_height = 20;
-const int global_zero = 40;
+const int global_zero = 0;
 /**
  *@class point
  *which use to handle the console area
@@ -270,7 +270,7 @@ public:
             x.set_point( destroyer_left , blocks_top + row); // set position
             x.gotoxy(); // go to the wanted position
             putch(' '); // replace the sign with empty space
-            cout << "\a"; // destroying sound
+            Beep(900 * 1 / row , 300 * 1 / row); // destroying sound variable with the row number
     }
 
     void destroy_blocks_element(int destroyer_left){
