@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cstdio> //this to use puts() FUNCTION
+#include <cstdio> //this to use putch() FUNCTION
 #include <windows.h>
 #include <process.h>
 #include <conio.h>
@@ -7,7 +7,7 @@
 using namespace std;
 const int global_width = 36;
 const int global_height = 20;
-const int global_zero = 5;
+const int global_zero = 40;
 /**
  *@class point
  *which use to handle the console area
@@ -81,7 +81,7 @@ void draw_frame()
     for (x.set_point(frame_zero , frame_zero); x <= point(frame_width , frame_zero); x += point(1, 0))
     {
         x.gotoxy();
-        puts("*");
+        putch('*');
     }
 
     //set the Right line of the frame
@@ -89,7 +89,7 @@ void draw_frame()
     for (x.set_point(frame_width  , frame_zero); x <= point(frame_width  , frame_height ); x += point(0, 1))
     {
         x.gotoxy();
-        puts("*");
+        putch('*');
     }
     //set the Left line of the frame
     //              Start               END
