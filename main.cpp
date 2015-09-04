@@ -190,6 +190,7 @@ class blocks{
     int blocks_left;
     int blocks_zero;
     int blocks_top;
+    int blocks_score;
     char  blocks_sign;
     char* blocks_array_row_1;
     char* blocks_array_row_2;
@@ -202,9 +203,11 @@ public:
         blocks_width = width - 2;
         blocks_zero = zero + 2;
         blocks_top = zero + 1;
-        blocks_left =zero + 2;
+        blocks_left = zero + 2;
+        blocks_score = 0; // the score initialize
         blocks_sign = '@';
         create_blocks();
+        print_blocks_score(); //print zero score before any action from the user
     }
 
     /**@function void create_blocks
@@ -270,7 +273,10 @@ public:
             x.set_point( destroyer_left , blocks_top + row); // set position
             x.gotoxy(); // go to the wanted position
             putch(' '); // replace the sign with empty space
-            Beep(900 * 1 / row , 300 * 1 / row); // destroying sound variable with the row number
+            blocks_score += 1;
+            print_blocks_score();
+          //  Beep(900 * 1 / row , 300 * 1 / row); // destroying sound variable with the row number
+            cout << "\a";
     }
 
     void destroy_blocks_element(int destroyer_left){
@@ -296,6 +302,20 @@ public:
                 return; //void return
             }
             Beep(500,500); // warning sound
+    }
+
+    /**@function void print_blocks_score
+      *this function used when an element from the block destroyed successfully
+      */
+    void print_blocks_score(){
+        // the text message
+        x.set_point( blocks_width + 5 , blocks_height -1);
+        x.gotoxy();
+        puts(" Your score is : ");
+        // the value message
+        x.set_point( blocks_width + 1.5 * strlen(" Your score is :") , blocks_height-1);
+        x.gotoxy();
+        cout<<blocks_score;
     }
 };
 
