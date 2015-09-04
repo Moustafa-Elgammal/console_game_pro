@@ -190,7 +190,8 @@ class blocks{
     int blocks_left;
     int blocks_zero;
     int blocks_top;
-    int blocks_score;
+    int correct_score;
+    int wrong_score;
     char  blocks_sign;
     char* blocks_array_row_1;
     char* blocks_array_row_2;
@@ -204,10 +205,12 @@ public:
         blocks_zero = zero + 2;
         blocks_top = zero + 1;
         blocks_left = zero + 2;
-        blocks_score = 0; // the score initialize
-        blocks_sign = '@';
+        correct_score = 0; // the score initialize
+        wrong_score = 0; //the wrong score initialize
+        blocks_sign = '.';
         create_blocks();
-        print_blocks_score(); //print zero score before any action from the user
+        print_correct_score(); //print zero correct score before any action from the user
+        print_wrong_score(); //print zero wrong score before any action from the user
     }
 
     /**@function void create_blocks
@@ -273,8 +276,8 @@ public:
             x.set_point( destroyer_left , blocks_top + row); // set position
             x.gotoxy(); // go to the wanted position
             putch(' '); // replace the sign with empty space
-            blocks_score += 1;
-            print_blocks_score();
+            correct_score += 1; //update the score in positive
+            print_correct_score();
           //  Beep(900 * 1 / row , 300 * 1 / row); // destroying sound variable with the row number
             cout << "\a";
     }
@@ -301,13 +304,15 @@ public:
                 replace_blocks_element(destroyer_left , 1); //replacement function
                 return; //void return
             }
+            wrong_score += 1; // update the wrong score in positive
+            print_wrong_score();
             Beep(500,500); // warning sound
     }
 
     /**@function void print_blocks_score
       *this function used when an element from the block destroyed successfully
       */
-    void print_blocks_score(){
+    void print_correct_score(){
         // the text message
         x.set_point( blocks_width + 5 , blocks_height -1);
         x.gotoxy();
@@ -315,7 +320,21 @@ public:
         // the value message
         x.set_point( blocks_width + 1.5 * strlen(" Your score is :") , blocks_height-1);
         x.gotoxy();
-        cout<<blocks_score;
+        cout<<correct_score;
+    }
+
+      /**@function void print_wrong_score
+      *this function used when no element from the block destroyed
+      */
+    void print_wrong_score(){
+        // the text message
+        x.set_point( blocks_width + 5 , blocks_height );
+        x.gotoxy();
+        puts(" Your wrong is : ");
+        // the value message
+        x.set_point( blocks_width + 1.5 * strlen(" Your wrong is :") , blocks_height);
+        x.gotoxy();
+        cout<<wrong_score;
     }
 };
 
