@@ -8,6 +8,7 @@ using namespace std;
 const int global_width = 36;
 const int global_height = 20;
 const int global_zero = 0;
+
 /**
  *@class point
  *which use to handle the console area
@@ -310,6 +311,7 @@ public:
             live_stay -= 1; // update the wrong score in positive
             print_live_stay();
             Beep(500,500); // warning sound
+            check_live_stay();
     }
 
     /**@function void print_blocks_score
@@ -339,13 +341,17 @@ public:
         x.gotoxy();
         cout<<live_stay;
     }
-    /**@function bool check_live_stay
+
+    /**@function void check_live_stay
       *used to check if the user lost all lives
       */
-    bool check_live_stay(){
-        if(!live_stay) // live_stay is in zero
-            return false;
-        return true;
+    void check_live_stay(){
+        if(!live_stay){ // live_stay is in zero
+            system("cls"); //clear the screen
+            cout << "Game Over,thank you .\n"; // goodbye statement
+            system("pause"); //this to controlled pause
+            exit(0);
+        }
     }
 
 };
@@ -386,15 +392,7 @@ int main(int argc, char const *argv[]) {
             game_destroyer.delete_destroyer();
             game_destroyer.draw_destroyer();
         }
-
-        if(!game_blocks.check_live_stay()){
-            system("cls"); //clear the screen
-            cout << "Game Over,thank you ."; // goodbye statement
-            system("pause"); //this to controlled pause
-            exit(0);
-        }
     }
-
     system("cls"); //clear the screen
     cout << "you just exit it,thank you ."; // goodbye statement
     system("pause"); //this to controlled pause
