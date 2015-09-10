@@ -281,7 +281,10 @@ public:
           //  Beep(900 * 1 / row , 300 * 1 / row); // destroying sound variable with the row number
             cout << "\a";
     }
-
+    /**@function void destroy_blocks_element
+      *used to find the neatest active element in the rows to
+      *destroy and update it's value to empty
+      */
     void destroy_blocks_element(int destroyer_left){
 
             // destroy the third element if is set with a sign the return void
@@ -323,7 +326,7 @@ public:
         cout<<correct_score;
     }
 
-      /**@function void print_live_stay
+    /**@function void print_live_stay
       *this function used when no element from the block destroyed
       */
     void print_live_stay(){
@@ -336,6 +339,15 @@ public:
         x.gotoxy();
         cout<<live_stay;
     }
+    /**@function bool check_live_stay
+      *used to check if the user lost all lives
+      */
+    bool check_live_stay(){
+        if(!live_stay) // live_stay is in zero
+            return false;
+        return true;
+    }
+
 };
 
 int main(int argc, char const *argv[]) {
@@ -373,6 +385,13 @@ int main(int argc, char const *argv[]) {
             game_blocks.create_blocks();
             game_destroyer.delete_destroyer();
             game_destroyer.draw_destroyer();
+        }
+
+        if(!game_blocks.check_live_stay()){
+            system("cls"); //clear the screen
+            cout << "Game Over,thank you ."; // goodbye statement
+            system("pause"); //this to controlled pause
+            exit(0);
         }
     }
 
