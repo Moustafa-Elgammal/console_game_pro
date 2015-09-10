@@ -191,7 +191,7 @@ class blocks{
     int blocks_zero;
     int blocks_top;
     int correct_score;
-    int wrong_score;
+    int live_stay;
     char  blocks_sign;
     char* blocks_array_row_1;
     char* blocks_array_row_2;
@@ -206,11 +206,11 @@ public:
         blocks_top = zero + 1;
         blocks_left = zero + 2;
         correct_score = 0; // the score initialize
-        wrong_score = 0; //the wrong score initialize
-        blocks_sign = '.';
+        live_stay = 3; //the wrong score initialize
+        blocks_sign = '@';
         create_blocks();
         print_correct_score(); //print zero correct score before any action from the user
-        print_wrong_score(); //print zero wrong score before any action from the user
+        print_live_stay(); //print zero wrong score before any action from the user
     }
 
     /**@function void create_blocks
@@ -304,8 +304,8 @@ public:
                 replace_blocks_element(destroyer_left , 1); //replacement function
                 return; //void return
             }
-            wrong_score += 1; // update the wrong score in positive
-            print_wrong_score();
+            live_stay -= 1; // update the wrong score in positive
+            print_live_stay();
             Beep(500,500); // warning sound
     }
 
@@ -323,18 +323,18 @@ public:
         cout<<correct_score;
     }
 
-      /**@function void print_wrong_score
+      /**@function void print_live_stay
       *this function used when no element from the block destroyed
       */
-    void print_wrong_score(){
+    void print_live_stay(){
         // the text message
         x.set_point( blocks_width + 5 , blocks_height );
         x.gotoxy();
-        puts(" Your wrong is : ");
+        puts(" wrong shot :");
         // the value message
-        x.set_point( blocks_width + 1.5 * strlen(" Your wrong is :") , blocks_height);
+        x.set_point( blocks_width + 1.5 * strlen(" wrong shot : ") , blocks_height);
         x.gotoxy();
-        cout<<wrong_score;
+        cout<<live_stay;
     }
 };
 
