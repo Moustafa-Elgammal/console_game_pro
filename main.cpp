@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cstdio> //this to use putch() FUNCTION
+#include <cstdio> //this to use _putch() FUNCTION
 #include <windows.h>
 #include <process.h>
 #include <conio.h>
@@ -82,7 +82,7 @@ void draw_frame()
     for (x.set_point(frame_zero , frame_zero); x <= point(frame_width , frame_zero); x += point(1, 0))
     {
         x.gotoxy();
-        putch('*');
+        _putch('*');
     }
 
     //set the Right line of the frame
@@ -90,21 +90,21 @@ void draw_frame()
     for (x.set_point(frame_width  , frame_zero); x <= point(frame_width  , frame_height ); x += point(0, 1))
     {
         x.gotoxy();
-        putch('*');
+        _putch('*');
     }
     //set the Left line of the frame
     //              Start               END
     for (x.set_point(frame_zero , frame_zero); x <= point(frame_zero, frame_height ); x += point(0, 1))
     {
         x.gotoxy();
-        putch('*');
+        _putch('*');
     }
     //set the bottom line of the frame
     //              Start               END
     for (x.set_point(frame_zero , frame_height ); x <= point(frame_width , frame_height ); x += point(1, 0))
     {
         x.gotoxy();
-        putch('*');
+        _putch('*');
     }
     cout<<"\nPRESS |'w' hit blocks||'a' move left|"<<endl;
     cout<<"      |'d' move right||'r' reload blocks|"<<endl;
@@ -137,7 +137,7 @@ public:
     void draw_destroyer(){
         x.set_point( destroyer_left , destroyer_top );
         x.gotoxy();
-        putch('^');
+        _putch('^');
     }
 
     /**@function void delete_destroyer
@@ -147,7 +147,7 @@ public:
     void delete_destroyer(){
         x.set_point( destroyer_left, destroyer_top);
         x.gotoxy();
-        putch(' ');
+        _putch(' ');
     }
 
     /**@function void move_destroyer_right
@@ -231,7 +231,7 @@ public:
                 if (blocks_array_row_1 [i] == blocks_sign){// check if index is set with value
                     x.set_point(i + blocks_zero , blocks_top + 1); // set its position
                     x.gotoxy(); //handle the coordinates
-                    putch(blocks_sign); // print its sign
+                    _putch(blocks_sign); // print its sign
                 }
             } else { // reverse shape function
                 blocks_array_row_1 [i] =' '; // set empty element value
@@ -246,7 +246,7 @@ public:
                 if (blocks_array_row_2 [i] == blocks_sign){ // check if index is set with value
                     x.set_point(i + blocks_zero , blocks_top + 2); // set its position
                     x.gotoxy(); //handle the coordinates
-                    putch(blocks_sign); // print its sign
+                    _putch(blocks_sign); // print its sign
                 }
             } else { // reverse shape function
                 blocks_array_row_2 [i] =' '; // set empty element value
@@ -261,7 +261,7 @@ public:
                 if (blocks_array_row_3 [i] == blocks_sign){// check if index is set with value
                     x.set_point(i + blocks_zero , blocks_top + 3); // set its position
                     x.gotoxy(); //handle the coordinates
-                    putch(blocks_sign); // print its sign
+                    _putch(blocks_sign); // print its sign
                 }
             } else { // reverse shape function
                 blocks_array_row_3 [i] =' '; // set empty element value
@@ -276,7 +276,7 @@ public:
     void replace_blocks_element(int destroyer_left, int row){
             x.set_point( destroyer_left , blocks_top + row); // set position
             x.gotoxy(); // go to the wanted position
-            putch(' '); // replace the sign with empty space
+            _putch(' '); // replace the sign with empty space
             correct_score += 1; //update the score in positive
             print_correct_score();
           //  Beep(900 * 1 / row , 300 * 1 / row); // destroying sound variable with the row number
@@ -396,7 +396,6 @@ int main(int argc, char const *argv[]) {
     system("cls"); //clear the screen
     cout << "you just exit it,thank you ."; // goodbye statement
     system("pause"); //this to controlled pause
-
     return 0;
 }
 /*just note in a git commit */
